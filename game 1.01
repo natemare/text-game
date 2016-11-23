@@ -19,7 +19,7 @@ bottomdrawer_statement = "You take the rusty iron knife"
 #Bridge
 bridge = "%s is on a bridge looking out over a small brook. In the distance there is the broken windmill of an abandonded farmhouse" % player_name
 underbridge = "Under the bridge is dark with thick, wet moss growing through the cobble cracks, dripping like living green stalactites as they hang from the damp stone ceiling. You see a small door under the bridge, the cracks around the edges illuminated by a thin light causing dancing shadows to play across the rippling brook water"
-roomunderbridge = "A small six foot by six foot alcove illumintated by a single flickering torch is revealed as the door is opened. Within is a small wooden dresser with two drawers, a top drawer and a bottom drawer. The dresser looks old." 
+roomunderbridge = "A small Six foot by six foot alcove illumintated by a single flickering torch is revealed as the door is opened. Within is a small wooden dresser with two drawers, a top drawer and a bottom drawer. The dresser looks old." 
 topdrawer = "You find a healing potion. It glows with inner light."
 bottomdrawer = "The drawer bottom crumbles from decay as it is opened. A rusty iron knife clatters to the ground."
 
