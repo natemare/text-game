@@ -2,7 +2,7 @@ import time
 
 health = 10
 inventory = ['clothes']
-player_name = raw_input("What is your name?! > ")
+player_name = raw_input("What is your name?!!! > ")
 
 """world items"""
 topdrawer_items = 'full'
