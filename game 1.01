@@ -71,7 +71,7 @@ while restart:
             continue
         while "bridge" in action:
             break
-        while "inside" or "door" in action:
+        while "inside" or "door"or"open" in action:
             location = windmillfloor
             print location
             action = raw_input("What do you do? > ")
