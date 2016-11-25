@@ -1,0 +1,338 @@
+import time
+import random
+
+health = 10
+inventory = ['clothes']
+player_name = raw_input("What is your name? > ")
+
+"""world items"""
+topdrawer_items = 'full'
+bottomdrawer_items = 'full'
+"""Deaths"""
+death = ''
+death_lich = "The lich stands over your broken body absorbing your soul. Light fades from your eyes as your last breath halts frozen in your lungs."
+
+"""Statements about stuff"""
+topdraweritem_statement = "You take the health potion"
+bottomdraweritem_statement = "You take the rusty iron knife"
+"""Enemies"""
+#lich
+check_lichunderbridge = True
+sees_lichunderbridge = "You see a lich. The decaying undead body sways gently as it hovers over the ground suspended by the ethereal mists. Chains hang from the rotting corpse. The lich lunges toward you." 
+lichhp = 10
+
+
+"""World Locations Visited"""
+check_roomunderbridge = False
+
+"""World Descriptions"""
+
+#Bridge
+sees_overbridge = "You see a path leading under the bridge. In the distance there is the broken windmill."
+sees_underbridge = "Under the bridge is dark with thick, wet moss growing through the cobble cracks, dripping like living green stalactites as they hang from the damp stone ceiling. You see a small door under the bridge, the cracks around the edges illuminated by a thin light causing dancing shadows to play across the rippling brook water"
+sees_roomunderbridge = "A cramped alcove illumintated by a single flickering torch is revealed as the door is opened. Within is a small wooden dresser with two drawers, a top drawer and a bottom drawer. The dresser looks old." 
+sees_topdrawer = "You find a healing potion. It glows with inner light."
+sees_bottomdrawer = "The drawer bottom crumbles from decay as it is opened. A rusty iron knife clatters to the ground."
+
+loc_overbridge = "You are standing on small stone bridge overlooking a brook."
+loc_underbridge = "You are standing under the bridge."
+loc_roomunderbridge = "You are in a small hidden room under the bridge."
+
+#Bridge Detail
+sees_bridgetorch = "The small torch flickers gently revealing very little of the dark room around you. It gives off very little light."
+sees_bridgedetail = "The bridge was made from weathered cobbles a long time ago. A foot path is barely visible leading below the bridge."
+sees_pathdetail = "The path has been walked recently. Footprints in the soft dirt are faintly visible."
+
+#Windmill
+sees_windmill = "You see that the structure has a wooden door standing adjar and swinging in the gentle breeze. The wooden windmill blades have rotted and fallen off long ago"
+sees_windmillfloor = "You see a stone spiral staircase winding around the outside of the room to the second floor. In the middle is a glass chandelier hanging crookedly on the ceiling. In the right corner there is a crushed desk laying on the ground. On the left corner is a small door."
+sees_windmillstairup = "You climb the staircase."
+sees_windmillstairdown = "You decend the staircase."
+sees_windmillfloor2 = "The second floor is a large open room that has a large device that looks like it was used to grind flour. On one wall there is a small staircase that goes to the third floor. Behind is a stair down. A giant mural of the windmill is on the opposite wall."
+sees_windmillfloor3 = "The third floor is a another large open room that has many boxes and bags. It appears to be a storage room. In the left corner is a small door like the one on the first floor."
+sees_windmillsecret1 = "The room is a small square tower going all the way up to the third floor. On one wall there is a small platform that appears to be able to hoist you up to the top floor. On all the other walls there are pegs with rope tied in a circle around the room. All the pegs appear empty except the three at the top which you cannnot see. A lever is on your right."
+sees_windmillsecret2 = "You are on a small platfrom. Next to you is the elevator shaft that you saw on the first floor. The three hooks you saw have decaying bodies hanging with ropes around their necks. The smell is horrifying"
+
+loc_windmill = "You are at the broken windmill."
+loc_windmillfloor = "You are inside the windmill on the first floor."
+loc_windmillfloor2 = "You are on the second floor of the windmill."
+loc_windmillfloor3 = "You are on the third floor of the windmill."
+loc_windmillsecret1 = "You are in on the first floor of a tiny alcove."
+loc_windmillsecret2 = "You are on a platform on the third floor of the windmill."
+
+#Windmill Detail 
+sees_windmilldesk = "The desk has been neglected for a long time. Lying broken in the corner, old sealing wax splattered over its mildewed surface, the desk lays ominously, ready to reveal secrets."
+sees_windmillbags = "The bags are old and falling apart at the seams. Their contents have long since rotted. A faint smell of decay and rats eminates from them."
+sees_windmillboxes = "The wooden crates once stored the tools of the millers trade. A faded emblem of a family crest is embossed on one side. The crest is an owl grasping something in its talons."
+sees_windmillbodies = "The bodies are hanging from old hemp rope. As you peer into the darkness, the closest turns slowly as if moved by an invisible force. It grins down at you."
+
+location = loc_overbridge
+sees = sees_overbridge
+
+while health > 0:
+    print '\n'
+    print location
+    randomencounter = random.randint(1,20)
+    print sees
+    print '\n'
+    action2 = ''
+    action1 = raw_input("What do you do? >")
+    if action1 == 'inventory':
+        print inventory
+    if action1 == 'health':
+        print "%s's Health is %s" % (player_name, str(health))
+    if location == loc_overbridge:
+        if "under" in action1:
+            location = loc_underbridge
+            sees = sees_underbridge
+            action1 = ''
+        if "windmill" in action1:
+            location = loc_windmill
+            sees = sees_windmill
+            action1 = ''            
+    if location == loc_underbridge:
+        if "door" in action1:
+            location = loc_roomunderbridge
+            sees = sees_roomunderbridge
+            action1 = ''
+        if "leave" in action1:
+            location = loc_overbridge
+            sees = sees_overbridge
+            action1 = ''
+        if "above" in action1:
+            location = loc_overbridge
+            sees = sees_overbridge
+            action1 = ''
+        if "inside" in action1:
+            location = loc_roomunderbridge
+            sees = sees_roomunderbridge
+    
+                                            
+    if location == loc_roomunderbridge:
+        check_roomunderbridge = True
+        if "bottom" in action1:
+            location = loc_roomunderbridge
+            sees = sees_bottomdrawer
+            action1 = ''
+            print sees
+            action2 = raw_input("What do you do? >")
+            if "pick" in action2:
+                if bottomdrawer_items != 'empty':
+                    inventory += ['knife']
+                print bottomdraweritem_statement
+                bottomdraweritem_statement = "There is nothing to take."
+                sees_bottomdrawer = "The bottom drawer is empty and looks like the broken bottom could not possible hold anything anymore."
+                bottomdrawer_items = 'empty'
+            if "take" in action2:
+                if bottomdrawer_items != 'empty':
+                    inventory += ['knife']
+                print bottomdraweritem_statement
+                bottomdraweritem_statement = "There is nothing to take."
+                sees_bottomdrawer = "The bottom drawer is empty and looks like the broken bottom could not possible hold anything anymore."
+                bottomdrawer_items = 'empty'
+                
+            else:
+                location = loc_roomunderbridge
+                sees = sees_roomunderbridge
+                action1 = ''
+        if "top" in action1:
+            location = loc_roomunderbridge
+            sees = sees_topdrawer
+            print sees
+            action2 = raw_input("What do you do? >")
+            if "take" in action2:
+                if topdrawer_items != 'empty':
+                    inventory += ['health potion']
+                print topdraweritem_statement
+                topdraweritem_statement = "There is nothing to take."
+                sees_topdrawer = "The top drawer is empty."
+                topdrawer_items = 'empty'
+            if "pick" in action2:
+                if topdrawer_items != 'empty':
+                    inventory += ['health potion']
+                print topdraweritem_statement
+                topdraweritem_statement = "There is nothing to take."
+                sees_topdrawer = "The top drawer is empty."
+                topdrawer_items = 'empty'
+            else:
+                location = loc_roomunderbridge
+                sees = sees_roomunderbridge
+                action1 = ''
+        if "leave" in action1:
+            location = loc_underbridge
+            sees = sees_underbridge
+            action1 = ''
+        if "exit" in action1:
+            location = loc_underbridge
+            sees = sees_underbridge
+            action1 = ''
+        if "door" in action1:
+            location = loc_underbridge
+            sees = sees_underbridge
+            action1 = ''
+    if location == loc_windmill:
+        if "door" in action1:
+            location = loc_windmillfloor
+            sees = sees_windmillfloor
+            action1 = ''
+        if "enter" in action1:
+            location = loc_windmillfloor
+            sees = sees_windmillfloor
+            action1 = ''
+        if "inside" in action1:
+            location = loc_windmillfloor
+            sees = sees_windmillfloor
+            action1 = ''
+        if 'leave' in action1:
+            location = loc_overbridge
+            sees = sees_overbridge
+            action = ''
+    if location == loc_windmillfloor:
+        if "up stairs" in action1:
+            location = loc_windmillfloor2
+            sees = sees_windmillfloor2
+            action1 = ''
+        if "hidden" in action1:
+            location = loc_windmillsecret1
+            sees = sees_windmillsecret1
+            action1 = ''
+        if "small door" in action1:
+            location = loc_windmillsecret1
+            sees = sees_windmillsecret1
+            action1 = ''
+        if "desk" in action1:
+            location = loc_windmillfloor
+            sees = sees_windmilldesk
+            print sees
+            sees = sees_windmillfloor
+            action1 = ''
+        if "leave" in action1:
+            location = loc_windmill
+            sees = sees_windmill
+            action1 = ''
+        if "exit" in action1:
+            location = loc_windmill
+            sees = sees_windmill
+            action1 = ''
+    if location == loc_windmillsecret1:
+        if "lever" in action1:
+            location = loc_windmillsecret2
+            sees = sees_windmillsecret2
+            action1 = ''
+        if "leave" in action1:
+            location = loc_windmillfloor
+            sees = sees_windmillfloor
+            action1 = ''
+        if "door" in action1:
+            location = loc_windmillfloor
+            sees = sees_windmillfloor
+            action1 = ''
+    if location == loc_windmillsecret2:
+        if "lever" in action1:
+            location = loc_windmillsecret1
+            sees = sees_windmillsecret1
+            action1 = ''
+        if "hang" in action1:
+            location = loc_windmillsecret1
+            sees = sees_windmillbodies
+            action = ''
+            check_lichunderbridge = True
+            lichhp = 15
+    if location == loc_windmillfloor2:
+        if "up stairs" in action1:
+            location = loc_windmillfloor3
+            sees = sees_windmillfloor3
+            action1 = ''
+        if "down" in action1:
+            location = loc_windmillfloor
+            sees = sees_windmillfloor
+            action1 = ''
+    if location == loc_windmillfloor3:
+        if "down" in action1:
+            location = loc_windmillfloor2
+            sees = sees_windmillfloor2
+            action1 = ''
+        if "door" in action1:
+            location = loc_windmillsecret2
+            sees = sees_windmillsecret2
+            action1 = ''
+        if "boxes" in action1:
+            location = loc_windmillfloor3
+            sees = sees_windmillboxes
+            print sees
+            action1 = ''
+            seees = sees_windmillfloor3
+        if "bag" in action1:
+            location = loc_windmillfloor3
+            sees = sees_windmillbags
+            print sees
+            sees = sees_windmillfloor3
+            action = ''
+
+    if check_roomunderbridge == True:
+        if randomencounter == 5:
+            if check_lichunderbridge == True:
+                sees2 = sees
+                while lichhp > 0 and health > 0:
+                    sees = sees_lichunderbridge
+                    print '\n\n'
+                    print sees
+                    print 'The lich has %s health left.' % lichhp
+                    print 'You have %s health left.' % health
+                    print '\n'
+                    action2 = raw_input("What do you do? >")
+                    if 'run' in action2:
+                        print 'You try to run away but the lich floats along the ground beside you laughing'
+                    if 'knife' in inventory:
+                        if "hit" in action2:
+                            dmg = random.randint(3,6)
+                            print "You hack away at the lich with your knife doing %s damage." % dmg
+                            lichhp -= dmg
+                            action2 = ''
+                        if "throw" and "knife" in action2:
+                            dmg = random.randint(8,11)
+                            inventory.remove('knife')
+                            print "You thrown the knife a the lich doing %s damage." % dmg
+                            lichhp -= dmg
+                            action2 = ''
+                    if 'health potion' in inventory:
+                        if "throw" and  "potion" in action2:
+                            dmg = random.randint(20,40)
+                            inventory.remove('health potion')
+                            print "The health potion sales through the air striking the lich. It shrieks as it slowly melts into the ground."
+                            lichhp -= dmg
+                            action2 = ''
+                        if "take" and "potion" in action2:
+                            hp = health + 5
+                            if hp > 10:
+                                health = 10
+                            if hp < 10:
+                                health = hp
+                            if hp == 10:
+                                health = 10
+                            inventory.remove('health potion')
+                            print health
+                            action2 = ''
+                    if 'knife' not in inventory:
+                        if "hit" in action2:
+                            dmg = random.randint(1,2)
+                            print "You hit the lich with your hand for %s damage" % dmg
+                            lichhp -= dmg
+                            action2 = ''
+                    if lichhp > 0:
+                        lichdmg = random.randint(1, 3)
+                        print "The lich strikes you with an icy blackhand. A chill goes up your spine. Your soul has taken %s damage." % lichdmg
+                        health -= lichdmg
+                    if health < 1:
+                        death = death_lich
+            check_lichunderbridge == False
+            sees = sees2
+
+
+
+
+
+
+            
+    if health < 1:
+        print death
